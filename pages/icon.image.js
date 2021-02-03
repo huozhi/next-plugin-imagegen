@@ -6,8 +6,3 @@ export default function IconImage({title}) {
   )
 }
 
-export function getServerSideProps(context) {
-  return {
-    props: context.query
-  }
-}
