@@ -1,0 +1,14 @@
+{
+  "name": "next-plugin-imagegen",
+  "version": "0.1.0",
+  "main": "./lib/index.js",
+  "files": [
+    "lib/*",
+    "loader.js",
+    "snapshot.js",
+    "*.md"
+  ],
+  "dependencies": {
+    "@microlink/mql": "^0.8.1"
+  }
+}

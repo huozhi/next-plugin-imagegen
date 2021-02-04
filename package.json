@@ -1,18 +1,10 @@
 {
-  "name": "next-snapshot-demo",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build"
-  },
-  "license": "MIT",
-  "devDependencies": {
-    "@microlink/mql": "^0.8.1",
-    "localtunnel": "^2.0.1",
-    "next": "^10.0.6",
-    "puppeteer-core": "^5.5.0",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1"
-  }
+  "name": "next-plugin-imagegen-mono",
+  "private": true,
+  "workspaces": [
+    "packages/next-plugin-imagegen",
+    "packages/next-plugin-imagegen-puppeteer",
+    "example"
+  ],
+  "license": "MIT"
 }

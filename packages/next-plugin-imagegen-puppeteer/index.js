@@ -30,4 +30,13 @@ async function getScreenshot(url, type = 'png') {
   return file
 }
 
-exports.getScreenshot = getScreenshot
+async function pptrSnapshot(url, res) {
+  const fileType = 'png'
+  const imageFile = await getScreenshot(url, fileType)
+  res.statusCode = 200
+  res.setHeader('Content-Type', `image/${fileType}`)
+  res.setHeader('Cache-Control', `public, immutable, no-transform, s-maxage=31536000, max-age=31536000`)
+  return res.end(imageFile)
+}
+
+module.exports = pptrSnapshot
