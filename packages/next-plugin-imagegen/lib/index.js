@@ -1,4 +1,6 @@
-const withImagegen = (nextConfig = {}) => {
+const withImagegen = ({api = 'imagegen'} = {}) => (nextConfig = {}) => {
+  const jsxImagePathRegex = ':slug*.image'
+  
   const customConfig = {
     webpack(config, args) {
       const imageComponentExt = /\.image\.jsx?$/
@@ -16,14 +18,21 @@ const withImagegen = (nextConfig = {}) => {
       const originRedirects = nextConfig.redirects ? await nextConfig.redirects() : []
       return [
         ...originRedirects,
-        {source: '/:slug*.image', destination: '/api/imagegen?url=/:slug*', permanent: false},
+        {
+          source: `/${jsxImagePathRegex}`, 
+          destination: `/api/${api}?url=/:slug*`, 
+          permanent: false
+        },
       ]
     },
     async rewrites() {
       const originRewrites = nextConfig.redirects ? await nextConfig.rewrites() : []
       return [
         ...originRewrites,
-        {source: '/:slug*.image.snapshot', destination: '/:slug*.image'},
+        {
+          source: `/${jsxImagePathRegex}.snapshot`,
+          destination: `/${jsxImagePathRegex}`
+        },
       ]
     }
   }

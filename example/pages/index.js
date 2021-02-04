@@ -1,8 +1,8 @@
 export default function Index() {
   return (
     <div>
+      <h1>Generate Image</h1>
       <img src='/icon.image?title=123' width={200} height={100} />
-      <h1>heiheihei</h1>
     </div>
   )
 }
