@@ -1,1 +1,1 @@
-module.exports = require('./lib/imagegen-loader')
+module.exports = require('./lib/loader')
