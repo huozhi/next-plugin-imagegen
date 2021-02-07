@@ -30,7 +30,7 @@ async function getScreenshot(url, type = 'png') {
   return file
 }
 
-async function pptrSnapshot(url, res) {
+async function pptrSnapshot(url, req, res) {
   const fileType = 'png'
   const imageFile = await getScreenshot(url, fileType)
   res.statusCode = 200

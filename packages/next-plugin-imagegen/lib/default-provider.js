@@ -1,12 +1,21 @@
+const https = require('https')
 const mql = require('@microlink/mql')
 
-async function microlinkSnapshot(url, res) {
+async function microlinkSnapshot(url, req, res) {
   const {status, data} = await mql(url, {screenshot: true, fullPage: true})
   const {screenshot} = data
   if (process.env.NODE_ENV !== 'production') {
     console.log(`imagegen:${status}`, url, '->', screenshot.url)
   }
-  res.redirect(302, screenshot.url)
+  const imageUrl = new URL(screenshot.url)
+  const imageReq = https.request(imageUrl, (imageRes) => {
+    res.writeHead(imageRes.statusCode, {
+      ...imageRes.headers,
+      'Cache-Control': 'public, immutable, no-transform, s-maxage=31536000, max-age=31536000'
+    })
+    imageRes.pipe(res)
+  })
+  req.pipe(imageReq)
 }
 
 module.exports = microlinkSnapshot

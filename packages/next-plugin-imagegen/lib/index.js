@@ -71,7 +71,7 @@ const withImagegen = (
         {
           source: `/${jsxImagePathRegex}`,
           destination: `/api/${api}?_url=/:slug*`,
-          permanent: false
+          permanent: true
         },
       ]
     },

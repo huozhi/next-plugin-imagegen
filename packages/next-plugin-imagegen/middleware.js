@@ -15,7 +15,7 @@ async function handler(snapshot, req, res) {
     console.log('HTTP:', req.url, '->', proxyUrl)
   }
 
-  await snapshot(proxyUrl, res)
+  await snapshot(proxyUrl, req, res)
 }
 
 const middleware = (snapshot) => async (req, res) => await handler(snapshot, req, res)
