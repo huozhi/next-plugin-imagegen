@@ -1,26 +1,76 @@
-const withImagegen = ({api = 'imagegen'} = {}) => (nextConfig = {}) => {
+const fs = require('fs')
+const {join} = require('path')
+
+function createApiSource({provider}) {
+  return (
+`import middleware from "next-plugin-imagegen/middleware"
+import provider from "${provider}"
+
+export default middleware(provider)`
+  )
+}
+
+const defaultProvider = 'next-plugin-imagegen/provider'
+
+const withImagegen = (
+  {
+    api = 'imagegen__', 
+    provider = defaultProvider
+  } = {}
+) => (nextConfig = {}) => {
   const jsxImagePathRegex = ':slug*.image'
-  
   const customConfig = {
-    webpack(config, args) {
+    webpack(webpackConfig, options) {
+      const {defaultLoaders, isServer} = options
       const imageComponentExt = /\.image\.jsx?$/
-      config.module.rules.push({
+
+      webpackConfig.module.rules.push({
         test: imageComponentExt,
-        loader: 'next-plugin-imagegen/loader',
+        use: [
+          defaultLoaders.babel,
+          {
+            loader: 'next-plugin-imagegen/loader',
+          },
+        ]
       })
 
-      if (typeof nextConfig.webpack === 'function') {
-        return nextConfig.webpack(config, args)
+      if (isServer) {
+        const apiDir = join(process.cwd(), 'pages', 'api')
+        const apiHandlerPath = join(apiDir, `${api}.js`)
+        const source = createApiSource({provider})
+ 
+        fs.writeFileSync(
+          join(__dirname, '..', 'api.js'),
+          source,
+          {encoding: 'utf-8'}
+        )
+        
+        // Dynamically adding file in async webpack entry won't work,
+        // next.js dev mode requires handler file in `pages/api` and be writable.
+        // So we forcedly generate one
+        fs.mkdirSync(apiDir, {recursive: true})
+        
+        // make it change less frequently
+        fs.writeFileSync(
+          apiHandlerPath,
+          `export {default} from "next-plugin-imagegen/api"`,
+          {encoding: 'utf-8'}
+        )
+        console.log('Api handler is created for imagegen in', apiHandlerPath)
       }
-      return config
+
+      if (typeof nextConfig.webpack === 'function') {
+        return nextConfig.webpack(webpackConfig, options)
+      }
+      return webpackConfig
     },
     async redirects() {
       const originRedirects = nextConfig.redirects ? await nextConfig.redirects() : []
       return [
         ...originRedirects,
         {
-          source: `/${jsxImagePathRegex}`, 
-          destination: `/api/${api}?url=/:slug*`, 
+          source: `/${jsxImagePathRegex}`,
+          destination: `/api/${api}?_url=/:slug*`,
           permanent: false
         },
       ]

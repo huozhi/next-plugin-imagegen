@@ -5,7 +5,8 @@
   "files": [
     "lib/*",
     "loader.js",
-    "snapshot.js",
+    "provider.js",
+    "middleware.js",
     "*.md"
   ],
   "dependencies": {
