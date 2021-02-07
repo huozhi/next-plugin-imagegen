@@ -1,3 +1,5 @@
-const withImagegen = require('next-plugin-imagegen')({provider: 'next-plugin-imagegen-puppeteer'})
+const withImagegen = require('next-plugin-imagegen')
 
-module.exports = withImagegen()
+module.exports = withImagegen({
+  provider: 'next-plugin-imagegen-puppeteer'
+})()

@@ -1,3 +1,2 @@
 # generated resources
-.cache/*
-!.cache/.keep
+api.js

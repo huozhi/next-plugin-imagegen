@@ -1,24 +1,29 @@
 const fs = require('fs')
 const {join} = require('path')
 
-const withImagegen = ({api = 'imagegen', provider} = {}) => (nextConfig = {}) => {
+function createApiSource({provider}) {
+  return (
+`import middleware from "next-plugin-imagegen/middleware"
+import provider from "${provider}"
+
+export default middleware(provider)`
+  )
+}
+
+const defaultProvider = 'next-plugin-imagegen/provider'
+
+const withImagegen = (
+  {
+    api = 'imagegen__', 
+    provider = defaultProvider
+  } = {}
+) => (nextConfig = {}) => {
   const jsxImagePathRegex = ':slug*.image'
-
-  function resolveProvider() {
-    const defaultProvider = 'next-plugin-imagegen/defaults'
-    if (!provider) return defaultProvider
-
-    console.log('Customized provider detected:', provider)
-
-
-    return provider
-  }
-
   const customConfig = {
     webpack(webpackConfig, options) {
       const {defaultLoaders, isServer} = options
-      // const {RawSource} = webpack.sources
       const imageComponentExt = /\.image\.jsx?$/
+
       webpackConfig.module.rules.push({
         test: imageComponentExt,
         use: [
@@ -29,27 +34,30 @@ const withImagegen = ({api = 'imagegen', provider} = {}) => (nextConfig = {}) =>
         ]
       })
 
-
       if (isServer) {
-        const originEntry = webpackConfig.entry
-        const apiSourceCode =
-        `import middleware from "next-plugin-imagegen/middleware"
-        import provider from "${resolveProvider()}"
-
-        export default middleware(provider)`
-
-        const filepath = join(__dirname, '.cache', 'imagengen.js')
-        fs.writeFileSync(filepath, apiSourceCode, {encoding: 'utf-8'})
-
-        webpackConfig.entry = async () => {
-          const entry = await originEntry()
-          entry[`pages/api/${api}`] = filepath
-
-          // console.log('db:entry', entry)
-          return entry
-        }
+        const apiDir = join(process.cwd(), 'pages', 'api')
+        const apiHandlerPath = join(apiDir, `${api}.js`)
+        const source = createApiSource({provider})
+ 
+        fs.writeFileSync(
+          join(__dirname, '..', 'api.js'),
+          source,
+          {encoding: 'utf-8'}
+        )
+        
+        // Dynamically adding file in async webpack entry won't work,
+        // next.js dev mode requires handler file in `pages/api` and be writable.
+        // So we forcedly generate one
+        fs.mkdirSync(apiDir, {recursive: true})
+        
+        // make it change less frequently
+        fs.writeFileSync(
+          apiHandlerPath,
+          `export {default} from "next-plugin-imagegen/api"`,
+          {encoding: 'utf-8'}
+        )
+        console.log('Api handler is created for imagegen in', apiHandlerPath)
       }
-
 
       if (typeof nextConfig.webpack === 'function') {
         return nextConfig.webpack(webpackConfig, options)
@@ -62,7 +70,7 @@ const withImagegen = ({api = 'imagegen', provider} = {}) => (nextConfig = {}) =>
         ...originRedirects,
         {
           source: `/${jsxImagePathRegex}`,
-          destination: `/api/${api}?url=/:slug*`,
+          destination: `/api/${api}?_url=/:slug*`,
           permanent: false
         },
       ]
