@@ -3,12 +3,11 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "tunnel": "lt --port 3000",
-    "dev": "next dev -p 3000",
+    "start": "next start",
+    "dev": "next dev",
     "build": "next build"
   },
   "devDependencies": {
-    "localtunnel": "^2.0.1",
     "next": "^10.0.6",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"

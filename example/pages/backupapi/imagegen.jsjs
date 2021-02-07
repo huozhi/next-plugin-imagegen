@@ -1,5 +1,7 @@
 import imagegenMiddleware from 'next-plugin-imagegen/middleware'
 
+console.log('imagengen module')
+
 export default imagegenMiddleware(
   process.env.NODE_ENV === 'production' ? null : require('next-plugin-imagegen-puppeteer')
 )

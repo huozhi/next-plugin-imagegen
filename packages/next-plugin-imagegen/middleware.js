@@ -1,5 +1,3 @@
-const defaultSnapshot = require('./lib/default-snapshot')
-
 function getProxyUrl(req) {
   const {url: originUrl, ...restQueries} = req.query
   const protocol = req.headers['x-forwarded-proto'] || (req.headers.referer || '').split(':')[0] || 'http'
@@ -12,9 +10,6 @@ function getProxyUrl(req) {
 }
 
 async function handler(snapshot, req, res) {
-  if (!snapshot) {
-    snapshot = defaultSnapshot
-  }
   const proxyUrl = getProxyUrl(req)
   console.log('HTTP:', req.url, '->', proxyUrl)
 
