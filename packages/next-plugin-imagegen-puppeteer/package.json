@@ -1,6 +1,6 @@
 {
   "name": "next-plugin-imagegen-puppeteer",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "index.js",
   "dependencies": {
     "chrome-aws-lambda": "7.0.0",
