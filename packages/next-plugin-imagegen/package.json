@@ -4,9 +4,7 @@
   "main": "./lib/index.js",
   "files": [
     "lib/*",
-    "loader.js",
-    "provider.js",
-    "middleware.js",
+    "*.js",
     "*.md"
   ],
   "dependencies": {
