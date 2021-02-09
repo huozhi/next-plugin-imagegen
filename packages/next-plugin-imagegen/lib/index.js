@@ -3,10 +3,10 @@ const {join} = require('path')
 
 function createApiSource({provider}) {
   return (
-`import middleware from "next-plugin-imagegen/middleware"
-import provider from "${provider}"
+`const middleware = require("next-plugin-imagegen/middleware")
+const provider = require("${provider}")
 
-export default middleware(provider)`
+module.exports = middleware(provider)`
   )
 }
 
