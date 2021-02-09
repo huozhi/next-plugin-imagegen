@@ -9,10 +9,7 @@ async function microlinkSnapshot(url, req, res) {
   }
   const imageUrl = new URL(screenshot.url)
   const imageReq = https.request(imageUrl, (imageRes) => {
-    res.writeHead(imageRes.statusCode, {
-      ...imageRes.headers,
-      'Cache-Control': 'public, immutable, no-transform, s-maxage=31536000, max-age=31536000'
-    })
+    res.writeHead(imageRes.statusCode, imageRes.headers)
     imageRes.pipe(res)
   })
   req.pipe(imageReq)

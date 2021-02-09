@@ -35,7 +35,7 @@ async function pptrSnapshot(url, req, res) {
   const imageFile = await getScreenshot(url, fileType)
   res.statusCode = 200
   res.setHeader('Content-Type', `image/${fileType}`)
-  res.setHeader('Cache-Control', `public, immutable, no-transform, s-maxage=31536000, max-age=31536000`)
+  res.setHeader('Cache-Control', 'private, immutable, no-transform, s-maxage=31536000, max-age=31536000')
   return res.end(imageFile)
 }
 
