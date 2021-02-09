@@ -1,10 +1,11 @@
 const core = require('puppeteer-core')
+const chromium = require('chrome-aws-lambda')
 
 const executablePath = process.platform === 'win32'
-? 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe'
-: process.platform === 'linux'
-? '/usr/bin/google-chrome'
-: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
+  ? 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe'
+  : process.platform === 'linux'
+  ? '/usr/bin/google-chrome'
+  : '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
 
 
 let _page
@@ -12,9 +13,14 @@ async function getPage() {
   if (_page) {
       return _page
   }
-  const options = {
+  const options = process.env.NODE_ENV !== 'production' ? {
+    args: [],
     executablePath,
     headless: true,
+  } : {
+    args: chromium.args,
+    executablePath: await chromium.executablePath,
+    headless: chromium.headless,
   }
   const browser = await core.launch(options)
   _page = await browser.newPage()

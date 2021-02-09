@@ -8,10 +8,10 @@ Experimental! Do not use it in production!
 
 Create ./pages/logo.image.js in your next.js project
 ```js
-import './styles.css'
+import styles from './styles.module.css'
 
 export default function render({name}) {
-  return <div>Logo {name}</div>
+  return <div className={styles.root}>Logo {name}</div>
 }
 ```
 
