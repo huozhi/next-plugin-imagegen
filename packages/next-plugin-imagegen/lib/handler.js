@@ -1,8 +1,8 @@
 function getProxyUrl(req) {
-  const {_url: originUrl, ...restQueries} = req.query
+  const {imagegen: componentPath, ...restQueries} = req.query
   const protocol = req.headers['x-forwarded-proto'] || (req.headers.referer || '').split(':')[0] || 'http'
   const host = `${protocol}://${req.headers.host}`
-  const proxyUrl = new URL(originUrl + '.image.snapshot', host)
+  const proxyUrl = new URL(componentPath + '.image.snapshot', host)
   Object.keys(restQueries).forEach(key => {
     proxyUrl.searchParams.append(key, restQueries[key])
   })

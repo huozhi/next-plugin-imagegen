@@ -36,7 +36,7 @@ async function getScreenshot(url, type = 'png') {
   return file
 }
 
-async function pptrSnapshot(url, req, res) {
+async function provider(url, req, res) {
   const fileType = 'png'
   const imageFile = await getScreenshot(url, fileType)
   res.statusCode = 200
@@ -45,4 +45,4 @@ async function pptrSnapshot(url, req, res) {
   return res.end(imageFile)
 }
 
-module.exports = pptrSnapshot
+exports.provider = provider
