@@ -31,7 +31,7 @@ yarn add next-plugin-imagegen
 ```
 ## Usage
 
-Add in next.config.js
+Edit `next.config.js`
 
 ```js
 const { withImagegen } = require('next-plugin-imagegen')
@@ -49,16 +49,10 @@ If you want to use other provider, like puppeteer, just do:
 yarn add next-plugin-imagegen-puppeteer
 ```
 
-```js
-const { withImagegen } = require('next-plugin-imagegen')
-
-module.exports = withImagegen({/* next.js config */})
-```
-
-Specific puppeteer provider in 
+Specific puppeteer provider in `./pages/api/imagegen/[...imagegen].js`
 
 ```js
-import { handler /* provider as defaultProvider */ } from 'next-plugin-imagegen'
+import { handler } from 'next-plugin-imagegen'
 import { provider } from 'next-plugin-imagegen-puppeteer'
 
 export default handler(provider)
