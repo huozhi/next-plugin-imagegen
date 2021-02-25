@@ -10,7 +10,7 @@ Create `./pages/api/imagegen/[...imagegen].js`
 ```js
 import { handler, provider } from 'next-plugin-imagegen'
 
-export default handler(provider)
+export default handler(provider())
 ```
 
 `./pages/logo.image.js` in your next.js project
@@ -57,7 +57,7 @@ Specific puppeteer provider in `./pages/api/imagegen/[...imagegen].js`
 import { handler } from 'next-plugin-imagegen'
 import { provider } from 'next-plugin-imagegen-puppeteer'
 
-export default handler(provider)
+export default handler(provider({ type: 'jpeg' }))
 ```
 
 ### How It Works

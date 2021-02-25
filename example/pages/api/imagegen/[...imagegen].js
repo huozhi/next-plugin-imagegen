@@ -1,10 +1,11 @@
-import {
-  handler,
-  provider as defaultProvider
-} from 'next-plugin-imagegen'
+import { handler /* provider as defaultProvider */} from 'next-plugin-imagegen'
 import { provider } from 'next-plugin-imagegen-puppeteer'
 
 export default handler(
-  provider
-  // defaultProvider
+  provider({
+    screenshot: {
+      type: 'jpeg',
+    }
+  })
+  /* defaultProvider() */
 )

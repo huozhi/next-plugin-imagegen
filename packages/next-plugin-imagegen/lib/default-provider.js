@@ -3,7 +3,8 @@ const mql = require('@microlink/mql')
 
 const isProduction = process.env.NODE_ENV === 'production'
 
-async function defaultProvider(proxyUrl, req, res) {
+// TODO: declare mql options
+const defaultProvider = (options) => async function middleware(proxyUrl, req, res) {
   const mqlOptions = {
     screenshot: true,
     fullPage: true,
