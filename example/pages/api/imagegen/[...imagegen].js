@@ -5,6 +5,6 @@ import {
 import { provider } from 'next-plugin-imagegen-puppeteer'
 
 export default handler(
-  // provider
-  defaultProvider
+  provider
+  // defaultProvider
 )

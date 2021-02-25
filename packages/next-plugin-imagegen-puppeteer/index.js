@@ -29,7 +29,7 @@ async function getPage() {
   return _page
 }
 
-async function getScreenshot(url, type = 'png') {
+async function getScreenshot(url, type) {
   const page = await getPage()
   // default og image size: 1200x627
   await page.setViewport({ width: 1200, height: 627 })
