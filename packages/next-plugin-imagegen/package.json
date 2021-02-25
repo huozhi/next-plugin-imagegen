@@ -8,6 +8,6 @@
     "*.md"
   ],
   "dependencies": {
-    "@microlink/mql": "^0.8.1"
+    "@microlink/mql": "0.8.2"
   }
 }

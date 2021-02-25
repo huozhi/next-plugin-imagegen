@@ -3,7 +3,6 @@
   "version": "0.2.0",
   "main": "index.js",
   "dependencies": {
-    "chrome-aws-lambda": "7.0.0",
-    "puppeteer-core": "5.5.0"
+    "browserless": "8.7.10"
   }
 }
