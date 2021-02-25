@@ -1,46 +1,11 @@
-const core = require('puppeteer-core')
-const chromium = require('chrome-aws-lambda')
+const browserless = require('browserless')()
 
+// TODO: fileType as options
+const fileType = 'png'
 const isProduction = process.env.NODE_ENV === 'production'
 
-const executablePath = process.platform === 'win32'
-  ? 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe'
-  : process.platform === 'linux'
-  ? '/usr/bin/google-chrome'
-  : '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
-
-
-let _page
-async function getPage() {
-  if (_page) {
-      return _page
-  }
-  const options = !isProduction ? {
-    args: [],
-    executablePath,
-    headless: true,
-  } : {
-    args: chromium.args,
-    executablePath: await chromium.executablePath,
-    headless: chromium.headless,
-  }
-  const browser = await core.launch(options)
-  _page = await browser.newPage()
-  return _page
-}
-
-async function getScreenshot(url, type) {
-  const page = await getPage()
-  // default og image size: 1200x627
-  await page.setViewport({ width: 1200, height: 627 })
-  await page.goto(url)
-  const file = await page.screenshot({ type })
-  return file
-}
-
 async function provider(url, req, res) {
-  const fileType = 'png'
-  const imageFile = await getScreenshot(url, fileType)
+  const buffer = await await browserless.screenshot(url, { type: fileType })
   res.statusCode = 200
   res.setHeader('Content-Type', `image/${fileType}`)
   const cacheability = isProduction ?
@@ -48,7 +13,7 @@ async function provider(url, req, res) {
     'no-cache'
   res.setHeader('Cache-Control', cacheability)
 
-  return res.end(imageFile)
+  return res.end(buffer)
 }
 
 exports.provider = provider
