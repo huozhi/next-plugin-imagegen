@@ -1,3 +1,5 @@
+const instanceId = Date.now().toString(16).slice(0, 6)
+
 const withImagegen = (nextConfig = {}) => {
   const jsxImagePathRegex = ':slug*.image'
   const customConfig = {
@@ -26,7 +28,7 @@ const withImagegen = (nextConfig = {}) => {
         ...originRedirects,
         {
           source: `/${jsxImagePathRegex}`,
-          destination: `/api/imagegen/:slug*`,
+          destination: `/api/imagegen/${instanceId}/:slug*`,
           permanent: true
         },
       ]
@@ -36,7 +38,7 @@ const withImagegen = (nextConfig = {}) => {
       return [
         ...originRewrites,
         {
-          source: `/${jsxImagePathRegex}.snapshot`,
+          source: `/${jsxImagePathRegex}.${instanceId}`,
           destination: `/${jsxImagePathRegex}`
         },
       ]

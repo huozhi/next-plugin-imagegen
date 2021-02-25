@@ -1,25 +1,26 @@
 const https = require('https')
 const mql = require('@microlink/mql')
 
-const uuid = Math.round(Math.random() * 100000)
+const isProduction = process.env.NODE_ENV === 'production'
 
-async function microlinkSnapshot(url, req, res) {
-  const isProduction = process.env.NODE_ENV === 'production'
-  const {status, data} = await mql(url, {
+async function defaultProvider(proxyUrl, req, res) {
+  const mqlOptions = {
     screenshot: true,
     fullPage: true,
-    force: !isProduction, // if it's not production, invalidates cache every time
-  })
-  const {screenshot} = data
+    force: !isProduction,
+  }
+
+  const {status, data: {screenshot}} = await mql(proxyUrl, mqlOptions)
   if (!isProduction) {
-    console.log(`imagegen:${status}`, url, '->', screenshot.url)
+    console.log(`imagegen:${status}`, proxyUrl, '->', screenshot.url)
   }
   const imageUrl = new URL(screenshot.url)
   const imageReq = https.request(imageUrl, (imageRes) => {
+    imageRes.headers['Cache-Control'] = 'private, immutable, no-transform, s-maxage=31536000, max-age=31536000'
     res.writeHead(imageRes.statusCode, imageRes.headers)
     imageRes.pipe(res)
   })
   req.pipe(imageReq)
 }
 
-module.exports = microlinkSnapshot
+module.exports = defaultProvider
