@@ -1,6 +1,8 @@
 const core = require('puppeteer-core')
 const chromium = require('chrome-aws-lambda')
 
+const isProduction = process.env.NODE_ENV === 'production'
+
 const executablePath = process.platform === 'win32'
   ? 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe'
   : process.platform === 'linux'
@@ -13,7 +15,7 @@ async function getPage() {
   if (_page) {
       return _page
   }
-  const options = process.env.NODE_ENV !== 'production' ? {
+  const options = !isProduction ? {
     args: [],
     executablePath,
     headless: true,
@@ -41,7 +43,11 @@ async function provider(url, req, res) {
   const imageFile = await getScreenshot(url, fileType)
   res.statusCode = 200
   res.setHeader('Content-Type', `image/${fileType}`)
-  res.setHeader('Cache-Control', 'private, immutable, no-transform, s-maxage=31536000, max-age=31536000')
+  const cacheability = isProduction ?
+    'private, immutable, no-transform, s-maxage=31536000, max-age=31536000' :
+    'no-cache'
+  res.setHeader('Cache-Control', cacheability)
+
   return res.end(imageFile)
 }
 

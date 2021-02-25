@@ -62,4 +62,3 @@ export default handler(provider)
 
 Imagegen plugin uses rewrites and redirects to proxy your image component routes, and setup a handler at the same time to snapshot your proxied image component routes and send back to the original proxy.
 
-**Notice**: This plugin will forcedly create a file in your `./pages/api` folder, you add it in your .gitignore or keep it in your codebase.
