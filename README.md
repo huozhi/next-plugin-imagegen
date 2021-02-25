@@ -46,8 +46,10 @@ If you want to use other provider, like puppeteer, just do:
 
 
 ```
-yarn add next-plugin-imagegen-puppeteer
+yarn add next-plugin-imagegen-puppeteer puppeteer
 ```
+
+Few puppeteer drivers are available: `puppeteer`, `puppeteer-core`, `puppeteer-firefox`
 
 Specific puppeteer provider in `./pages/api/imagegen/[...imagegen].js`
 
