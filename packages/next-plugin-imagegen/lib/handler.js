@@ -1,3 +1,6 @@
+const instanceId = Date.now().toString(16).slice(0, 6)
+const isProduction = process.env.NODE_ENV === 'production'
+
 function getProxyUrl(req) {
   const {imagegen: componentPath, ...restQueries} = req.query
   const protocol = req.headers['x-forwarded-proto'] || (req.headers.referer || '').split(':')[0] || 'http'
@@ -11,10 +14,12 @@ function getProxyUrl(req) {
 
 async function handler(snapshot, req, res) {
   const proxyUrl = getProxyUrl(req)
-  if (process.env.NODE_ENV !== 'production') {
+  if (!isProduction) {
     console.log('HTTP:', req.url, '->', proxyUrl)
   }
 
+  if (isProduction)
+  req.headers['x-imagegen-uid'] = instanceId
   await snapshot(proxyUrl, req, res)
 }
 
