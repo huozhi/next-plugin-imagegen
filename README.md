@@ -38,9 +38,25 @@ const { withImagegen } = require('next-plugin-imagegen')
 
 module.exports = withImagegen({/* next.js config */})
 ```
-#### Other Providers
 
-By default, imagegen plugin will use [Microlink](https://microlink.io/) as default provider for snapshot your component. This requires you to expose your network to the internet to make your endpoint accessible by microlink services. For example you can use `ngrok` to expose your localhost to web and visit the provided url for development.
+### Advanced options
+
+By default, imagegen plugin will use [Microlink](https://microlink.io/) as default provider for snapshotting. This requires you to expose your network to the internet to make your endpoint accessible by microlink services. For example you can use `ngrok` to expose your localhost to web and visit the provided url for development.
+
+
+Configure the microlink query [options](https://microlink.io/docs/api/getting-started/overview)
+
+```js
+export default handler(
+  provider({
+    mql: {/* microlink options */}
+  })
+)
+```
+
+> Note: Enable microlink PRO plan you can configure `apiKey` in the `mql` config or just pass env var `MICROLINK_TOKEN` 
+
+#### Other Providers
 
 If you want to use other provider, like puppeteer, just do:
 
