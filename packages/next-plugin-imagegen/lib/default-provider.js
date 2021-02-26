@@ -15,7 +15,6 @@ const defaultProvider = (options = {}) => async function middleware(proxyUrl, re
   const mqlOptions = {
     // base configs
     fullPage: true,
-    ...mqlParameters,
     // overrides
     screenshot: true,
     force: !isProduction,

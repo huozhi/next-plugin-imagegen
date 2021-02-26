@@ -1,7 +1,13 @@
-const instanceId = Date.now().toString(16).slice(0, 6)
+const isProduction = process.env.NODE_ENV === 'production'
+const instanceId = isProduction ? Date.now().toString(16).slice(0, 6) : 'snapshot'
 
 const withImagegen = (nextConfig = {}) => {
   const jsxImagePathRegex = ':slug*.image'
+
+  if (!isProduction) {
+    console.log(`\x1b[36mplugin-imagegen\x1b[0m - Develop your raw image components in /<route>.image.${instanceId}`)
+  }
+
   const customConfig = {
     webpack(webpackConfig, options) {
       const {defaultLoaders} = options
