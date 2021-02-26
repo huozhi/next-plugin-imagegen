@@ -24,6 +24,7 @@ Accessing `/logo.image?name=hello` will return a image as the snapshot of the co
 ```
 yarn add next-plugin-imagegen
 ```
+
 ## Usage
 ### Basic usage
 
@@ -44,6 +45,9 @@ export default handler(provider())
 ```
 
 By default, imagegen plugin will use [Microlink](https://microlink.io/) as default provider for snapshotting. This requires you to expose your network to the internet to make your endpoint accessible by microlink services. For example you can use `ngrok` to expose your localhost to web and visit the provided url for development.
+
+Visit route `/<path>.image.snapshot` to access the original rendered html page for image components.
+
 ### Advanced usage
 
 To override the available microlink provider options, checkout [microlink options](https://microlink.io/docs/api/getting-started/overview) for details.
