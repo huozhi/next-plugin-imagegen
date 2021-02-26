@@ -14,17 +14,17 @@ function getProxyUrl(req) {
   return proxyUrl.href
 }
 
-async function middleware(snapshot, req, res) {
+async function middleware(provider, req, res) {
   const proxyUrl = getProxyUrl(req)
   if (!isProduction) {
     console.log('HTTP:', req.url, '->', proxyUrl)
   }
-  await snapshot(proxyUrl, req, res)
+  await provider(proxyUrl, req, res)
 }
 
-const handler = (snapshot) => 
-  async (req, res) => 
-    await middleware(snapshot, req, res)
+const handler = (provider) =>
+  async (req, res) =>
+    await middleware(provider, req, res)
 
 module.exports = handler
 
