@@ -1,10 +1,7 @@
-const browserless = require('browserless')
-
 const isProduction = process.env.NODE_ENV === 'production'
 
-
 function provider(options = {}) {
-  const instance = browserless()
+  const browserless = require('browserless')()
   return async function (url, req, res) {
     const {
       // browserless options
@@ -19,7 +16,7 @@ function provider(options = {}) {
       omitBackground,
     } = options
 
-    const buffer = await instance.screenshot(url, {
+    const buffer = await browserless.screenshot(url, {
       headers,
       device,
       viewport,
