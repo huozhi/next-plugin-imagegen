@@ -34,7 +34,7 @@ function provider(options = {}) {
       'no-cache'
 
     res.statusCode = 200
-    res.setHeader('Content-Type', `image/${options.type}`)
+    res.setHeader('Content-Type', `image/${type}`)
     res.setHeader('Cache-Control', cacheability)
     res.end(buffer)
   }
