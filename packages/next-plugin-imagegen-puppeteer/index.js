@@ -12,7 +12,7 @@ function provider(options = {}) {
       viewport,
       colorScheme,
       // puppeteer options
-      type,
+      type = 'png',
       quality,
       clip,
       omitBackground,
