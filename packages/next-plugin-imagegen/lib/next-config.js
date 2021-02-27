@@ -1,5 +1,5 @@
 const isProduction = process.env.NODE_ENV === 'production'
-const instanceId = isProduction ? Date.now().toString(16).slice(0, 6) : 'snapshot'
+const instanceId = isProduction ? Date.now().toString(16).slice(-6) : 'snapshot'
 
 const withImagegen = (nextConfig = {}) => {
   const jsxImagePathRegex = ':slug*.image'
