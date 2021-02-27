@@ -1,12 +1,17 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
-type MicrolinkProviderOptions = {
-  apiKey?: string,
-  ttl?: string | number,
-  headers?: object,
+export type ProviderOptions = {
+  type?: string,
   device?: string,
   viewport?: object,
   colorScheme?: string,
+  omitBackground?: boolean,
+}
+
+type MicrolinkProviderOptions = ProviderOptions & {
+  apiKey?: string,
+  ttl?: string | number,
+  headers?: object,
 }
 
 export type SnapshotProivider = (url: string, req: NextApiRequest, res: NextApiResponse) => Promise<any>

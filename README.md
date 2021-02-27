@@ -98,8 +98,6 @@ export default handler(
     device: 'Macbook Pro 13',
     colorScheme: 'no-preference',
     type: 'png',
-    quality: 50,
-    clip: { /* ... */},
     omitBackground: false,
   })
 )

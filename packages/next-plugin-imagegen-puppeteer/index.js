@@ -1,4 +1,4 @@
-const isProduction = process.env.NODE_ENV === 'production'
+const dev = process.env.NODE_ENV !== 'production'
 
 function provider(options = {}) {
   const browserless = require('browserless')()
@@ -27,9 +27,9 @@ function provider(options = {}) {
       omitBackground,
       fullPage: true,
     })
-    const cacheability = isProduction ?
-      'private, immutable, no-transform, s-maxage=31536000, max-age=31536000' :
-      'no-cache'
+    const cacheability = dev ?
+      'no-cache' :
+      'private, immutable, no-transform, s-maxage=31536000, max-age=31536000'
 
     res.statusCode = 200
     res.setHeader('Content-Type', `image/${type}`)

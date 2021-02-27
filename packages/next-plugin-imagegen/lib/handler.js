@@ -1,4 +1,4 @@
-const isProduction = process.env.NODE_ENV === 'production'
+const dev = process.env.NODE_ENV !== 'production'
 
 function getProxyUrl(req) {
   const {imagegen, ...restQueries} = req.query
@@ -16,9 +16,7 @@ function getProxyUrl(req) {
 
 async function middleware(provider, req, res) {
   const proxyUrl = getProxyUrl(req)
-  if (!isProduction) {
-    console.log('HTTP:', req.url, '->', proxyUrl)
-  }
+  if (dev) console.log('HTTP:', req.url, '->', proxyUrl)
   await provider(proxyUrl, req, res)
 }
 

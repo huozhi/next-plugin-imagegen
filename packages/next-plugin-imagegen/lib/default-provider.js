@@ -1,35 +1,37 @@
 const https = require('https')
 const mql = require('@microlink/mql')
 
-const isProduction = process.env.NODE_ENV === 'production'
+const dev = process.env.NODE_ENV !== 'production'
 
 const defaultProvider = (options = {}) => async function middleware(proxyUrl, req, res) {
   const {
     apiKey,
     ttl,
+    type = 'png',
+    omitBackground = false,
     headers,
     device,
     viewport,
     colorScheme,
   } = options
   const mqlOptions = {
-    // base configs
-    fullPage: true,
-    // overrides
-    screenshot: true,
-    force: !isProduction,
-    apiKey: apiKey || process.env.MICROLINK_TOKEN,
     ttl,
     device,
     headers,
     viewport,
     colorScheme,
+    type,
+    omitBackground,
+    fullPage: true,
+    screenshot: true,
+    force: dev,
+    apiKey: apiKey || process.env.MICROLINK_TOKEN,
   }
 
   const {status, data: {screenshot}} = await mql(proxyUrl, mqlOptions)
-  if (!isProduction) {
-    console.log(`imagegen:${status}`, proxyUrl, '->', screenshot.url)
-  }
+  
+  if (dev) console.log(`imagegen:${status}`, proxyUrl, '->', screenshot.url)
+
   const imageUrl = new URL(screenshot.url)
   const imageReq = https.request(imageUrl, (imageRes) => {
     imageRes.headers['Cache-Control'] = 'private, immutable, no-transform, s-maxage=31536000, max-age=31536000'
