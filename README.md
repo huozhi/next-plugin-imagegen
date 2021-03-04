@@ -119,5 +119,5 @@ export default handler(
 ```
 ### How It Works
 
-Imagegen plugin uses rewrites and redirects to proxy your image component routes, and setup a handler at the same time to snapshot your proxied image component routes and send back to the original proxy.
+Imagegen plugin proxies your image component routes, and setup a handler at the same time to snapshot your original image component HTML and send back to user end.
 
