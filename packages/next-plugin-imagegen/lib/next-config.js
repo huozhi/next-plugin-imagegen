@@ -41,7 +41,7 @@ const withImagegen = (nextConfig = {}) => {
       ]
     },
     async rewrites() {
-      const originRewrites = nextConfig.redirects ? await nextConfig.rewrites() : []
+      const originRewrites = nextConfig.rewrites ? await nextConfig.rewrites() : []
       return [
         ...originRewrites,
         {
