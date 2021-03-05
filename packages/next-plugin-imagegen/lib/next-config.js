@@ -10,6 +10,9 @@ const withImagegen = (nextConfig = {}) => {
     nextConfig = typeof nextConfig === 'function'
       ? nextConfig(phase, { defaultConfig })
       : nextConfig
+    
+    const pageExtensions = nextConfig.pageExtensions || defaultConfig.pageExtensions
+    
     return {
       webpack(webpackConfig, options) {
         const { defaultLoaders } = options
@@ -30,12 +33,10 @@ const withImagegen = (nextConfig = {}) => {
         }
         return webpackConfig
       },
-      pageExtensions: [
-        'image.js',
-        'image.ts',
-        'image.jsx',
-        'image.tsx',
-      ].concat(defaultConfig.pageExtensions),
+      pageExtensions: pageExtensions
+        .filter(pe => /^(t|j)sx?$/.test(pe))
+        .map(pe => 'image.' + pe)
+        .concat(pageExtensions),
       async redirects() {
         const originRedirects = nextConfig.redirects
           ? await nextConfig.redirects()
