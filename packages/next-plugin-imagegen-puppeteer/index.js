@@ -1,5 +1,3 @@
-const dev = process.env.NODE_ENV !== 'production'
-
 function provider(options = {}) {
   const browserless = require('browserless')()
   return async function (url, req, res) {
@@ -27,13 +25,9 @@ function provider(options = {}) {
       omitBackground,
       fullPage: true,
     })
-    const cacheability = dev ?
-      'no-cache' :
-      'private, immutable, no-transform, s-maxage=31536000, max-age=31536000'
 
     res.statusCode = 200
     res.setHeader('Content-Type', `image/${type}`)
-    res.setHeader('Cache-Control', cacheability)
     res.end(buffer)
   }
 }
