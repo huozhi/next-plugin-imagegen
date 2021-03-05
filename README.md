@@ -64,14 +64,25 @@ export default handler(
     
     // microlink PRO plan options
     apiKey: 'microlink api key',
-    ttl: 'max',
     headers: { /* ... */ },
+    ttl: 'max',
   })
 )
 ```
 
-> Note: Enable microlink PRO plan you can configure `apiKey` in the `mql` config or just pass `MICROLINK_TOKEN` as env variable.
+Microlink options of pro plan
 
+* `apiKey`: API token for microlink. Configure this option or just pass `MICROLINK_TOKEN` through env variable.
+* `ttl`: the maximum quantity of time a resource served from cache layer is considered as valid. [microlink parameters/ttl](https://microlink.io/docs/api/parameters/ttl)
+* `headers`: custom HTTP header to be passed along over the url. [microlink parameters/headers](https://microlink.io/docs/api/parameters/headers)
+
+For rest options listed below, checkout [browserless API docs](https://browserless.js.org/#/?id=screenshoturl-options) for details of other options.
+
+* `type`
+* `device`
+* `viewport`
+* `colorScheme`
+* `omitBackground`
 #### Other Providers
 
 If you want to use other provider, like puppeteer, just do:
@@ -99,11 +110,23 @@ export default handler(
     colorScheme: 'no-preference',
     type: 'png',
     omitBackground: false,
+    ttl: 31536000,
   })
 )
 ```
 
-To override the available puppeteer provider options, checkout [browserless screenshot options](https://browserless.js.org/#/?id=screenshoturl-options) for details.
+* `ttl`: the maximum amount of time a resource is considered fresh, seconds in integer, `0` by default.
+
+For rest options listed below, checkout [browserless screenshot options](https://browserless.js.org/#/?id=screenshoturl-options) for details.
+
+* `headers`
+* `type`
+* `device`
+* `viewport`
+* `colorScheme`
+* `omitBackground`
+
+### Local Development
 
 You can also specify puppeteer provider for local development, and default provider (microlink) for production.
 

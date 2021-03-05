@@ -1,3 +1,5 @@
+const dev = process.env.NODE_ENV !== 'production'
+
 function provider(options = {}) {
   const browserless = require('browserless')()
   return async function (url, req, res) {
@@ -8,9 +10,8 @@ function provider(options = {}) {
       viewport,
       colorScheme,
       // puppeteer options
+      ttl = 0,
       type = 'png',
-      quality,
-      clip,
       omitBackground,
     } = options
 
@@ -20,14 +21,16 @@ function provider(options = {}) {
       viewport,
       colorScheme,
       type,
-      quality,
-      clip,
       omitBackground,
       fullPage: true,
     })
 
+    const cacheability = dev ?
+      'no-cache' :
+      `private, immutable, no-transform, max-age=${Math.floor(ttl)}`
     res.statusCode = 200
     res.setHeader('Content-Type', `image/${type}`)
+    res.setHeader('Cache-Control', cacheability)
     res.end(buffer)
   }
 }
