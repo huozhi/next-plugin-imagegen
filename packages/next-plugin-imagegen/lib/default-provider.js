@@ -26,6 +26,7 @@ const defaultProvider = (options = {}) => async function middleware(proxyUrl, re
     screenshot: true,
     force: dev,
     apiKey: apiKey || process.env.MICROLINK_TOKEN,
+    meta: false
   }
 
   const {status, data: {screenshot}} = await mql(proxyUrl, mqlOptions)
