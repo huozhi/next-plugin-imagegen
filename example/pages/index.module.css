@@ -1,0 +1,8 @@
+.root {
+  margin: auto;
+  max-width: 640px;
+}
+
+.root img {
+  border: 1px dashed #444;
+}
