@@ -2,6 +2,13 @@
 > A next.js plugin turns jsx components as image.
 
 
+<p algin="left">
+  <a aria-label="NPM version" href="https://www.npmjs.com/package/next-plugin-imagegen">
+    <img alt="" src="https://badgen.net/npm/v/next-plugin-imagegen">
+  </a>
+</p>
+
+
 ## Introduction
 
 > ⚠️ Still in experiment! Use it in production with caution!
