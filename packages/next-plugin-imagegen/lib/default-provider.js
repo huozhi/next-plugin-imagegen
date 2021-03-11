@@ -33,12 +33,12 @@ const defaultProvider = (options = {}) => async function middleware(proxyUrl, re
     meta: false
   }
 
-  const {status, data: {screenshot}} = await mql(proxyUrl, mqlOptions)
-  
-  if (dev) console.log(`imagegen:${status}`, proxyUrl, '->', screenshot.url)
+  const {status, data} = await mql(proxyUrl, mqlOptions)
+  const imageUrl = data.screenshot.url
 
-  const imageUrl = new URL(screenshot.url)
-  const imageReq = https.request(imageUrl, (imageRes) => {
+  if (dev) console.log(`imagegen:${status}`, proxyUrl, '->', imageUrl, (new URL(imageUrl)).toString())
+
+  const imageReq = https.request(new URL(imageUrl), (imageRes) => {
     res.writeHead(imageRes.statusCode, imageRes.headers)
     imageRes.pipe(res)
   })

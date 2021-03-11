@@ -11,7 +11,8 @@ function getProxyUrl(req) {
   Object.keys(restQueries).forEach(key => {
     proxyUrl.searchParams.append(key, restQueries[key])
   })
-  return proxyUrl.href
+  // URL encodes everything, need to decodes the whole url to get raw queries
+  return decodeURIComponent(proxyUrl.href)
 }
 
 async function middleware(provider, req, res) {
