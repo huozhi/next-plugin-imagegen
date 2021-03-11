@@ -1,12 +1,18 @@
 const dev = process.env.NODE_ENV !== 'production'
 
+const defaultViewport = {
+  deviceScaleFactor: 1,
+  isMobile: false,
+  hasTouch: false,
+  isLandscape: false,
+}
+
 function provider(options = {}) {
   const browserless = require('browserless')()
   return async function (url, req, res) {
     const {
       // browserless options
       headers,
-      device,
       viewport,
       colorScheme,
       // puppeteer options
@@ -17,8 +23,7 @@ function provider(options = {}) {
 
     const buffer = await browserless.screenshot(url, {
       headers,
-      device,
-      viewport,
+      viewport: Object.assign({}, defaultViewport, viewport),
       colorScheme,
       type,
       omitBackground,
