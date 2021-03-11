@@ -1,6 +1,6 @@
 {
   "name": "next-plugin-imagegen",
-  "version": "0.4.2",
+  "version": "0.5.0",
   "main": "./index.js",
   "types": "./types.d.ts",
   "files": [
