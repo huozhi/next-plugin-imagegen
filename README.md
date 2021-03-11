@@ -58,7 +58,6 @@ import { handler, provider } from 'next-plugin-imagegen'
 export default handler(
   provider({
     // Available options
-    device: 'Macbook Pro 13',
     colorScheme: 'no-preference',
     viewport: { /* ... */ },
     
@@ -79,7 +78,6 @@ Microlink options of pro plan
 For rest options listed below, checkout [browserless API docs](https://browserless.js.org/#/?id=screenshoturl-options) for details of other options.
 
 * `type`
-* `device`
 * `viewport`
 * `colorScheme`
 * `omitBackground`
@@ -106,7 +104,6 @@ export default handler(
     // Available options
     headers: { /* ... */ },
     viewport: {/* ... */ },
-    device: 'Macbook Pro 13',
     colorScheme: 'no-preference',
     type: 'png',
     omitBackground: false,
@@ -121,7 +118,6 @@ For rest options listed below, checkout [browserless screenshot options](https:/
 
 * `headers`
 * `type`
-* `device`
 * `viewport`
 * `colorScheme`
 * `omitBackground`

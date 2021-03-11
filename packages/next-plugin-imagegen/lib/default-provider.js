@@ -2,6 +2,12 @@ const https = require('https')
 const mql = require('@microlink/mql')
 
 const dev = process.env.NODE_ENV !== 'production'
+const defaultViewport = {
+  deviceScaleFactor: 1,
+  isMobile: false,
+  hasTouch: false,
+  isLandscape: false,
+}
 
 const defaultProvider = (options = {}) => async function middleware(proxyUrl, req, res) {
   const {
@@ -10,15 +16,13 @@ const defaultProvider = (options = {}) => async function middleware(proxyUrl, re
     type = 'png',
     omitBackground = false,
     headers,
-    device,
     viewport,
     colorScheme,
   } = options
   const mqlOptions = {
     ttl,
-    device,
     headers,
-    viewport,
+    viewport: Object.assign({}, defaultViewport, viewport),
     colorScheme,
     type,
     omitBackground,

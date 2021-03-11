@@ -2,7 +2,6 @@ import { NextApiRequest, NextApiResponse } from 'next'
 
 export type ProviderOptions = {
   type?: string,
-  device?: string,
   viewport?: object,
   colorScheme?: string,
   omitBackground?: boolean,
