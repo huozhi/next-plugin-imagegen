@@ -94,10 +94,8 @@ If you want to use other provider, like puppeteer, just do:
 
 
 ```
-yarn add next-plugin-imagegen-puppeteer puppeteer
+yarn add next-plugin-imagegen next-plugin-imagegen-puppeteer
 ```
-
-Few puppeteer drivers are available: `puppeteer`, `puppeteer-core`, `puppeteer-firefox`
 
 Specific puppeteer provider in `./pages/api/imagegen/[...imagegen].js`
 
@@ -120,13 +118,13 @@ export default handler(
 ```
 
 * `ttl`: the maximum amount of time a resource is considered fresh, seconds in integer, `0` by default.
+* `colorScheme`: value of `prefers-color-scheme`
 
-For rest options listed below, checkout [browserless screenshot options](https://browserless.js.org/#/?id=screenshoturl-options) for details.
+puppeteer options
 
 * `headers`
 * `type`
 * `viewport`
-* `colorScheme`
 * `omitBackground`
 
 ### Local Development
