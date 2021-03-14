@@ -7,7 +7,7 @@ const executablePath = process.platform === 'win32'
     : process.platform === 'linux'
       ? '/usr/bin/google-chrome'
       : '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
-  
+
 const defaultViewport = {
   deviceScaleFactor: 1,
   isMobile: false,
@@ -16,7 +16,7 @@ const defaultViewport = {
 }
 
 
-function provider(options = {}) {  
+function provider(options = {}) {
   let globalPage
   async function getPage() {
     if (globalPage) { return globalPage }
@@ -29,11 +29,11 @@ function provider(options = {}) {
       executablePath: await chromelambda.executablePath,
       headless: chromelambda.headless,
     }
-      
+
     const browser = await core.launch(launchOptions)
     return (globalPage = await browser.newPage())
   }
-  
+
   return async function (url, req, res) {
     const {
       // browserless options
@@ -42,7 +42,7 @@ function provider(options = {}) {
       // puppeteer options
       ttl = 0,
       type = 'png',
-      colorScheme = 'no-preference',
+      colorScheme,
       omitBackground,
     } = options
 
@@ -50,7 +50,7 @@ function provider(options = {}) {
     if (headers) {
       await page.setExtraHTTPHeaders(headers)
     }
-    if (colorScheme === 'no-preference') {      
+    if (colorScheme) {
       await page.emulateMediaFeatures([{ name: 'prefers-color-scheme', value: colorScheme }])
     }
 
