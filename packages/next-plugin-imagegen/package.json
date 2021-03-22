@@ -6,8 +6,7 @@
   "files": [
     "lib/*",
     "*.js",
-    "*.d.ts",
-    "*.md"
+    "*.d.ts"
   ],
   "dependencies": {
     "@microlink/mql": "0.8.2"
