@@ -9,6 +9,6 @@
     "*.d.ts"
   ],
   "dependencies": {
-    "@microlink/mql": "0.8.2"
+    "@microlink/mql": "0.9.3"
   }
 }
