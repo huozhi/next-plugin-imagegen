@@ -37,37 +37,26 @@ const withImagegen = (nextConfig = {}) => {
         .filter(pe => /^(t|j)sx?$/.test(pe))
         .map(pe => 'image.' + pe)
         .concat(pageExtensions),
-      async redirects() {
-        const originRedirects = nextConfig.redirects
-          ? await nextConfig.redirects()
-          : []
-        return [
-          ...originRedirects,
-          // NOTE: rewriting /xxx.image to api doesn't work on dev mode, use redirects
-          dev && {
-            source: `/:slug*.image`,
-            destination: `/api/imagegen/${instanceId}/:slug*`,
-            permanent: true
-          },
-        ].filter(Boolean)
-      },
       async rewrites() {
         const originRewrites = nextConfig.rewrites
           ? await nextConfig.rewrites()
-          : []
-        return [
-          ...originRewrites,
-          // rewrites xxx.image requests to imagegen api
-          !dev && {
-            source: `/:slug*.image`,
-            destination: `/api/imagegen/${instanceId}/:slug*`,
-          },
-          // origin component snapshot
-          {
-            source: `/:slug*.image.${instanceId}`,
-            destination: `/:slug*`,
-          },
-        ].filter(Boolean)
+          : {}
+        return {
+          ...(!Array.isArray(originRewrites) && originRewrites),
+          beforeFiles: [
+            ...(originRewrites.beforeFiles || []),
+            // rewrites xxx.image requests to imagegen api
+            {
+              source: `/:slug*.image`,
+              destination: `/api/imagegen/${instanceId}/:slug*`,
+            },
+            // origin component snapshot
+            {
+              source: `/:slug*.image.${instanceId}`,
+              destination: `/:slug*`,
+            }
+          ],
+        }
       },
     }
   }
