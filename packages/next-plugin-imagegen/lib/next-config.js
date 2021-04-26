@@ -56,7 +56,6 @@ const withImagegen = (nextConfig = {}) => {
               destination: `/:slug*`,
             }
           ],
-          fallback: originRewrites.fallback || [],
         }
       },
     }
