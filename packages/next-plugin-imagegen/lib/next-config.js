@@ -40,9 +40,10 @@ const withImagegen = (nextConfig = {}) => {
       async rewrites() {
         const originRewrites = nextConfig.rewrites
           ? await nextConfig.rewrites()
-          : {}
+          : []
+        const isArrayRewrites = Array.isArray(originRewrites)
         return {
-          ...(!Array.isArray(originRewrites) && originRewrites),
+          ...(!isArrayRewrites && originRewrites),
           beforeFiles: [
             ...(originRewrites.beforeFiles || []),
             // rewrites xxx.image requests to imagegen api
@@ -56,6 +57,9 @@ const withImagegen = (nextConfig = {}) => {
               destination: `/:slug*`,
             }
           ],
+          fallback: isArrayRewrites ? 
+            originRewrites : 
+            (originRewrites.fallback || []),
         }
       },
     }
