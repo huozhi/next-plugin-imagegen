@@ -1,13 +1,11 @@
 {
-  "name": "next-plugin-imagegen",
+  "name": "next-plugin-imagegen-svg",
   "version": "0.6.0",
   "main": "./index.js",
   "types": "./types.d.ts",
   "files": [
-    "lib/*",
     "*.js",
-    "*.d.ts",
-    "*.md"
+    "*.d.ts"
   ],
   "peerDependencies": {
     "next": ">= 10.1.0"

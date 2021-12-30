@@ -1,5 +1,6 @@
 import { handler, provider as defaultProvider } from 'next-plugin-imagegen'
-import { provider } from 'next-plugin-imagegen-puppeteer'
+import { provider } from 'next-plugin-imagegen-svg'
+// import { provider } from 'next-plugin-imagegen-puppeteer'
 
 const options = {
   viewport: {

@@ -1,8 +1,8 @@
-import { SnapshotProivider, ProviderOptions } from 'next-plugin-imagegen'
+import { SnapshotProvider, ProviderOptions } from 'next-plugin-imagegen'
 
 export type PuppeteerProviderOptions = ProviderOptions & {
   headers?: object,
   ttl?: number,
 }
 
-export function provider(options: PuppeteerProviderOptions): SnapshotProivider
+export function provider(options: PuppeteerProviderOptions): SnapshotProvider

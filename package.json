@@ -1,9 +1,10 @@
 {
-  "name": "next-plugin-imagegen-mono",
+  "name": "next-imagegen-mono",
   "private": true,
   "workspaces": [
     "packages/next-plugin-imagegen",
     "packages/next-plugin-imagegen-puppeteer",
+    "packages/next-plugin-imagegen-svg",
     "example"
   ],
   "license": "MIT"
