@@ -1,0 +1,10 @@
+{
+  "name": "next-plugin-imagegen-svg",
+  "version": "0.6.0",
+  "main": "./index.js",
+  "types": "./types.d.ts",
+  "files": [
+    "*.js",
+    "*.d.ts"
+  ]
+}
