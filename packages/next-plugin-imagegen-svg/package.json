@@ -6,11 +6,5 @@
   "files": [
     "*.js",
     "*.d.ts"
-  ],
-  "peerDependencies": {
-    "next": ">= 10.1.0"
-  },
-  "dependencies": {
-    "@microlink/mql": "0.9.3"
-  }
+  ]
 }
