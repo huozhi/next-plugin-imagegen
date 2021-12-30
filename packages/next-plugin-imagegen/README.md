@@ -67,11 +67,12 @@ export default handler(
     // Available options
     colorScheme: 'no-preference',
     viewport: { /* ... */ },
-    
+    omitBackground: false,
     // microlink PRO plan options
     apiKey: 'microlink api key',
     headers: { /* ... */ },
     ttl: 'max',
+    type: 'png,
   })
 )
 ```
@@ -84,16 +85,13 @@ Microlink options of pro plan
 
 For rest options listed below, checkout [browserless API docs](https://browserless.js.org/#/?id=screenshoturl-options) for details of other options.
 
-* `type`
-* `viewport`
-* `colorScheme`
-* `omitBackground`
-#### Other Providers
+### Providers
 
-If you want to use other provider, like puppeteer, just do:
+#### Puppeteer
 
+Use puppeteer to screenshot your image pages
 
-```
+```sh
 yarn add next-plugin-imagegen next-plugin-imagegen-puppeteer
 ```
 
@@ -120,12 +118,26 @@ export default handler(
 * `ttl`: the maximum amount of time a resource is considered fresh, seconds in integer, `0` by default.
 * `colorScheme`: value of `prefers-color-scheme`
 
-puppeteer options
+#### SVG
 
-* `headers`
-* `type`
-* `viewport`
-* `omitBackground`
+Render image pages into SVG
+
+```sh
+yarn add next-plugin-imagegen next-plugin-imagegen-svg
+```
+
+```js
+import { handler } from 'next-plugin-imagegen'
+import { provider } from 'next-plugin-imagegen-puppeteer'
+
+
+export default handler(
+  provider({
+    width: 200,
+    height: 200,
+  })
+)
+```
 
 ### Local Development
 
