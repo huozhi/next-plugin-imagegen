@@ -1,10 +1,17 @@
 {
   "name": "next-plugin-imagegen-svg",
-  "version": "0.6.0",
-  "main": "./index.js",
-  "types": "./types.d.ts",
+  "version": "0.0.1",
+  "exports": {
+    ".": "./index.js",
+    "./plugin": "./plugin.js",
+    "./loader": "./loader.js"
+  },
   "files": [
     "*.js",
     "*.d.ts"
-  ]
+  ],
+  "dependencies": {
+    "@napi-rs/canvas": "^0.1.19",
+    "acorn": "^8.7.0"
+  }
 }

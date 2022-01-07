@@ -1,0 +1,10 @@
+{
+  "name": "imagegen-svg-example",
+  "private": true,
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  }
+}

@@ -33,7 +33,7 @@ yarn add next-plugin-imagegen
 ```
 
 ## Usage
-### Basic usage
+### HTML JSX
 
 Edit `next.config.js`
 
@@ -55,7 +55,6 @@ By default, imagegen plugin will use [Microlink](https://microlink.io/) as defau
 
 Visit route `/<path>.image.snapshot` to access the original rendered html page for image components.
 
-### Advanced usage
 
 To override the available microlink provider options, checkout [microlink options](https://microlink.io/docs/api/getting-started/overview) for details.
 
@@ -85,9 +84,7 @@ Microlink options of pro plan
 
 For rest options listed below, checkout [browserless API docs](https://browserless.js.org/#/?id=screenshoturl-options) for details of other options.
 
-### Providers
-
-#### Puppeteer
+#### Puppeteer Provider
 
 Use puppeteer to screenshot your image pages
 
@@ -118,28 +115,7 @@ export default handler(
 * `ttl`: the maximum amount of time a resource is considered fresh, seconds in integer, `0` by default.
 * `colorScheme`: value of `prefers-color-scheme`
 
-#### SVG
-
-Render image pages into SVG
-
-```sh
-yarn add next-plugin-imagegen next-plugin-imagegen-svg
-```
-
-```js
-import { handler } from 'next-plugin-imagegen'
-import { provider } from 'next-plugin-imagegen-puppeteer'
-
-
-export default handler(
-  provider({
-    width: 200,
-    height: 200,
-  })
-)
-```
-
-### Local Development
+#### HTML JSX Local Development
 
 You can also specify puppeteer provider for local development, and default provider (microlink) for production.
 
@@ -153,7 +129,8 @@ export default handler(
   process.env.NODE_ENV === 'production' ? defaultProvider() : provider()
 )
 ```
-### How It Works
+
+## How It Works
 
 Imagegen plugin proxies your image component routes, and setup a handler at the same time to snapshot your original image component HTML and send back to user end.
 

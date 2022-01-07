@@ -5,7 +5,13 @@
     "packages/next-plugin-imagegen",
     "packages/next-plugin-imagegen-puppeteer",
     "packages/next-plugin-imagegen-svg",
-    "example"
+    "examples/html-jsx",
+    "examples/svg-jsx"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "next": "12.0.8-canary.19",
+    "react": "18.0.0-rc.0",
+    "react-dom": "18.0.0-rc.0"
+  }
 }
